@@ -1,0 +1,440 @@
+/* ─── Reset & Base ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oswald:wght@400;600;700&display=swap');
+
+:root {
+  --bg:        #0d0d0d;
+  --panel:     #161616;
+  --border:    #2a2a2a;
+  --yellow:    #f5c800;
+  --yellow-dim:#a38800;
+  --red:       #e53e3e;
+  --green:     #38a169;
+  --white:     #e8e8e8;
+  --muted:     #666;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-head: 'Oswald', sans-serif;
+  --session:   240;   /* 4 minutes in seconds */
+  --cooldown:  300;   /* 5 minutes in seconds */
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+}
+
+/* ─── Screens ─── */
+.screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  animation: fadeIn 0.4s ease;
+}
+
+.hidden { display: none !important; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Sign Board ─── */
+.sign-board {
+  background: #1a1400;
+  border: 3px solid var(--yellow);
+  border-radius: 6px;
+  padding: 1.2rem 2.5rem;
+  text-align: center;
+  box-shadow: 0 0 24px rgba(245,200,0,0.25);
+}
+.sign-board.warning {
+  border-color: var(--red);
+  background: #1a0000;
+  box-shadow: 0 0 24px rgba(229,62,62,0.25);
+}
+.sign-board.warning .sign-line { color: var(--red); }
+
+.sign-line {
+  font-family: var(--font-head);
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 700;
+  color: var(--yellow);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.sign-sub {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.4rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.blink { animation: blink 1.4s step-start infinite; }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* ─── Boarding Card ─── */
+.card {
+  background: var(--panel);
+  border: 2px dashed var(--yellow);
+  border-radius: 10px;
+  padding: 2rem 2.5rem;
+  text-align: center;
+  max-width: 380px;
+  width: 100%;
+}
+
+.card-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.card-duration {
+  font-family: var(--font-head);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--yellow);
+  line-height: 1;
+  margin-bottom: 0.8rem;
+}
+
+.card-note {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 1.4rem;
+  line-height: 1.6;
+}
+
+.btn {
+  background: var(--yellow);
+  color: #000;
+  border: none;
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  text-transform: uppercase;
+}
+.btn:hover  { background: #ffe033; }
+.btn:active { transform: scale(0.97); }
+
+/* ─── Track Line ─── */
+.track-line {
+  width: 90%;
+  max-width: 600px;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--yellow) 0px, var(--yellow) 20px,
+    transparent 20px, transparent 30px
+  );
+  border-radius: 3px;
+  opacity: 0.4;
+}
+
+/* ─── Top Bar ─── */
+.topbar {
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: var(--panel);
+  border-bottom: 2px solid var(--yellow);
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px 6px 0 0;
+}
+
+.line-badge {
+  background: var(--yellow);
+  color: #000;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.line-badge.small { width: 1.5rem; height: 1.5rem; font-size: 0.85rem; }
+.line-badge.red   { background: var(--red); color: #fff; }
+.line-badge.green { background: var(--green); color: #fff; }
+
+.topbar-title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  flex: 1;
+}
+
+.station-name {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ─── Timer ─── */
+.timer-wrap {
+  width: 100%;
+  max-width: 760px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 1.5rem 1.5rem 1.2rem;
+  text-align: center;
+}
+
+.timer-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.timer-display {
+  font-family: var(--font-mono);
+  font-size: clamp(3rem, 10vw, 5rem);
+  color: var(--yellow);
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(245,200,0,0.6);
+  letter-spacing: 0.05em;
+  transition: color 0.3s;
+}
+.timer-display.urgent { color: var(--red); text-shadow: 0 0 20px rgba(229,62,62,0.6); }
+
+.timer-bar-wrap {
+  margin-top: 1rem;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.timer-bar {
+  height: 100%;
+  width: 100%;
+  background: var(--yellow);
+  border-radius: 3px;
+  transition: width 1s linear, background 0.5s;
+}
+.timer-bar.urgent { background: var(--red); }
+
+/* ─── Content Area ─── */
+.content-area {
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.content-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 0 0 6px 6px;
+  padding: 2rem;
+  line-height: 1.8;
+}
+
+.content-card h1 {
+  font-family: var(--font-head);
+  font-size: 2rem;
+  color: var(--yellow);
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.content-card p {
+  font-size: 0.92rem;
+  color: #bbb;
+  margin-bottom: 1rem;
+}
+
+.content-card blockquote {
+  border-left: 3px solid var(--yellow);
+  padding-left: 1rem;
+  color: var(--yellow-dim);
+  font-style: italic;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+
+/* ─── Transit Map ─── */
+.map-wrap {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.2rem 1.5rem;
+}
+
+.map-title {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+
+.map-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.map-line::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--border);
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.map-stop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 1;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 2px solid var(--muted);
+}
+
+.map-stop.passed .dot {
+  background: var(--yellow-dim);
+  border-color: var(--yellow-dim);
+}
+
+.current-dot {
+  background: var(--yellow) !important;
+  border-color: var(--yellow) !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245,200,0,0.6); }
+  50%       { box-shadow: 0 0 0 8px rgba(245,200,0,0); }
+}
+.pulse { animation: pulse 1.5s ease-out infinite; }
+
+.stop-label {
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.map-stop.current .stop-label { color: var(--yellow); }
+
+/* ─── Next Train / Waiting Screen ─── */
+.next-train-wrap {
+  text-align: center;
+  background: var(--panel);
+  border: 2px solid var(--red);
+  border-radius: 8px;
+  padding: 2rem 3rem;
+  box-shadow: 0 0 24px rgba(229,62,62,0.15);
+}
+
+.next-train-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.next-train-timer {
+  font-family: var(--font-mono);
+  font-size: clamp(3rem, 10vw, 5rem);
+  color: var(--red);
+  text-shadow: 0 0 20px rgba(229,62,62,0.5);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.next-train-sub {
+  margin-top: 0.8rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+/* ─── Departures Board ─── */
+.departures {
+  background: #0a0a0a;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.2rem 1.5rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+.dep-title {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+.dep-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 0;
+  font-size: 0.85rem;
+}
+.dep-row + .dep-row { border-top: 1px solid var(--border); }
+.dep-row.dim { opacity: 0.4; }
+
+.dep-dest { flex: 1; letter-spacing: 0.05em; }
+.dep-time { color: var(--yellow); font-size: 0.8rem; }
+.dep-row.dim .dep-time { color: var(--muted); }
+
+/* ─── Responsive ─── */
+@media (max-width: 520px) {
+  .topbar { flex-wrap: wrap; }
+  .card { padding: 1.5rem; }
+  .content-card { padding: 1.2rem; }
+  .map-stop { gap: 0.3rem; }
+  .stop-label { font-size: 0.55rem; }
+}
