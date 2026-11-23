@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subway Site</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- BOARDING SCREEN (shown on first visit before session starts) -->
+  <div id="boarding-screen" class="screen hidden">
+    <div class="sign-board">
+      <div class="sign-line blink">⬛ SUBWAY SITE ⬛</div>
+      <div class="sign-sub">Line 4 · Downtown Express</div>
+    </div>
+    <div class="card">
+      <div class="card-label">YOUR PASS</div>
+      <div class="card-duration">4 MINUTES</div>
+      <div class="card-note">Tap to board. Your session begins immediately.</div>
+      <button id="board-btn" class="btn">TAP TO BOARD</button>
+    </div>
+    <div class="track-line"></div>
+  </div>
+
+  <!-- ACTIVE SESSION SCREEN -->
+  <div id="session-screen" class="screen hidden">
+    <div class="topbar">
+      <span class="line-badge">4</span>
+      <span class="topbar-title">SUBWAY SITE</span>
+      <span class="station-name" id="station-name">Central Station</span>
+    </div>
+
+    <div class="timer-wrap">
+      <div class="timer-label">TIME REMAINING ON YOUR PASS</div>
+      <div class="timer-display" id="timer-display">4:00</div>
+      <div class="timer-bar-wrap">
+        <div class="timer-bar" id="timer-bar"></div>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="content-card">
+        <h1>Welcome Aboard</h1>
+        <p>You're riding the Subway Site — a place you can only visit for a limited time, just like a subway ride. Look around while you can. The doors close when your time is up.</p>
+        <p>This is a concept site inspired by the rhythm of public transit. You board, you ride, you exit. No lingering. No overstaying your welcome. The city keeps moving.</p>
+        <blockquote>"Stand clear of the closing doors, please."</blockquote>
+        <p>Enjoy the ride while it lasts.</p>
+      </div>
+
+      <div class="map-wrap">
+        <div class="map-title">LINE 4 — DOWNTOWN EXPRESS</div>
+        <div class="map-line">
+          <div class="map-stop passed" id="stop-0"><span class="dot"></span><span class="stop-label">Uptown</span></div>
+          <div class="map-stop passed" id="stop-1"><span class="dot"></span><span class="stop-label">Midtown</span></div>
+          <div class="map-stop current" id="stop-2"><span class="dot current-dot pulse"></span><span class="stop-label">Central</span></div>
+          <div class="map-stop" id="stop-3"><span class="dot"></span><span class="stop-label">Park Ave</span></div>
+          <div class="map-stop" id="stop-4"><span class="dot"></span><span class="stop-label">Terminal</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPIRED / WAITING SCREEN -->
+  <div id="waiting-screen" class="screen hidden">
+    <div class="sign-board warning">
+      <div class="sign-line">⚠ SESSION EXPIRED ⚠</div>
+      <div class="sign-sub">Your pass has been used. Wait for the next train.</div>
+    </div>
+
+    <div class="next-train-wrap">
+      <div class="next-train-label">NEXT TRAIN IN</div>
+      <div class="next-train-timer" id="next-train-timer">5:00</div>
+      <div class="next-train-sub">Stand behind the yellow line.</div>
+    </div>
+
+    <div class="departures">
+      <div class="dep-title">DEPARTURES</div>
+      <div class="dep-row">
+        <span class="line-badge small">4</span>
+        <span class="dep-dest">Downtown Express</span>
+        <span class="dep-time" id="dep-time-1">5 min</span>
+      </div>
+      <div class="dep-row dim">
+        <span class="line-badge small red">R</span>
+        <span class="dep-dest">Uptown Local</span>
+        <span class="dep-time">12 min</span>
+      </div>
+      <div class="dep-row dim">
+        <span class="line-badge small green">G</span>
+        <span class="dep-dest">Crosstown</span>
+        <span class="dep-time">18 min</span>
+      </div>
+    </div>
+
+    <div class="track-line"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
